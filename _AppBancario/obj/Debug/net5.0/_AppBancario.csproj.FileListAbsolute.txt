@@ -1,0 +1,16 @@
+C:\Development\Git\_AppBancario\_AppBancario\bin\Debug\net5.0\_AppBancario.exe
+C:\Development\Git\_AppBancario\_AppBancario\bin\Debug\net5.0\_AppBancario.deps.json
+C:\Development\Git\_AppBancario\_AppBancario\bin\Debug\net5.0\_AppBancario.runtimeconfig.json
+C:\Development\Git\_AppBancario\_AppBancario\bin\Debug\net5.0\_AppBancario.runtimeconfig.dev.json
+C:\Development\Git\_AppBancario\_AppBancario\bin\Debug\net5.0\_AppBancario.dll
+C:\Development\Git\_AppBancario\_AppBancario\bin\Debug\net5.0\ref\_AppBancario.dll
+C:\Development\Git\_AppBancario\_AppBancario\bin\Debug\net5.0\_AppBancario.pdb
+C:\Development\Git\_AppBancario\_AppBancario\obj\Debug\net5.0\_AppBancario.csprojAssemblyReference.cache
+C:\Development\Git\_AppBancario\_AppBancario\obj\Debug\net5.0\_AppBancario.GeneratedMSBuildEditorConfig.editorconfig
+C:\Development\Git\_AppBancario\_AppBancario\obj\Debug\net5.0\_AppBancario.AssemblyInfoInputs.cache
+C:\Development\Git\_AppBancario\_AppBancario\obj\Debug\net5.0\_AppBancario.AssemblyInfo.cs
+C:\Development\Git\_AppBancario\_AppBancario\obj\Debug\net5.0\_AppBancario.csproj.CoreCompileInputs.cache
+C:\Development\Git\_AppBancario\_AppBancario\obj\Debug\net5.0\_AppBancario.dll
+C:\Development\Git\_AppBancario\_AppBancario\obj\Debug\net5.0\ref\_AppBancario.dll
+C:\Development\Git\_AppBancario\_AppBancario\obj\Debug\net5.0\_AppBancario.pdb
+C:\Development\Git\_AppBancario\_AppBancario\obj\Debug\net5.0\_AppBancario.genruntimeconfig.cache

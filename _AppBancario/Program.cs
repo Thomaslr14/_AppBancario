@@ -32,6 +32,7 @@ namespace AppBancario
 
 
                         case 4:
+                        Functions.TransferCash();
                         break;
 
                         case 5:

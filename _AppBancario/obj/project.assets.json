@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Development\\Git\\_AppBancario\\_AppBancario\\_AppBancario.csproj",
+      "projectUniqueName": "C:\\DEVELOPMENT\\Git\\_AppBancario\\_AppBancario\\_AppBancario.csproj",
       "projectName": "_AppBancario",
-      "projectPath": "C:\\Development\\Git\\_AppBancario\\_AppBancario\\_AppBancario.csproj",
+      "projectPath": "C:\\DEVELOPMENT\\Git\\_AppBancario\\_AppBancario\\_AppBancario.csproj",
       "packagesPath": "C:\\Users\\thomas.rodrigues\\.nuget\\packages\\",
-      "outputPath": "C:\\Development\\Git\\_AppBancario\\_AppBancario\\obj\\",
+      "outputPath": "C:\\DEVELOPMENT\\Git\\_AppBancario\\_AppBancario\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"
@@ -65,7 +65,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
       }
     }
   }

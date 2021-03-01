@@ -10,11 +10,13 @@ namespace AppBancario.Classes
 
         public string cpf 
         {
-            get {
+            get 
+            {
                 return _cpf;
             }
-            set{
-                _cpf = cpf;
+            set
+            {
+                _cpf = value;
             }
         }
         public AccountType Type;

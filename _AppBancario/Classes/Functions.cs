@@ -6,7 +6,7 @@ namespace AppBancario.Classes
 {
     public class Functions
     {
-
+        private static Functions functions = new Functions();
         private static List<Account> listAccounts = new List<Account>();
 
         public static void CreateCount()
@@ -21,53 +21,29 @@ namespace AppBancario.Classes
             Console.WriteLine("R - Voltar ao Menu anterior");
             Console.WriteLine("X - SAIR");
             var TypeCount = Console.ReadLine();
-            try 
+            functions.ReturnOptions(TypeCount);
+            switch(Convert.ToInt32(TypeCount))
             {
-                if (TypeCount == "")
-                {
-                    throw new System.FormatException();
-                }
-                else if (TypeCount.ToUpper() == "R")
-                {
-                    Console.Clear();
-                    return;
-                }
-                else if (!Exit(TypeCount))
-                {
-                    Environment.Exit(0);
-                }
-                else 
-                {
-                    
-                    switch(Convert.ToInt32(TypeCount))
-                    {
-                        case 1:
-                        account.Type = Enum.AccountType.PF;
+                case 1:
+                account.Type = Enum.AccountType.PF;
 
-                        Console.WriteLine("\nInforme seu nome completo:");
-                        account.name = Console.ReadLine();
-                        Console.WriteLine("Informe seu CPF:");
-                        account.cpf = Console.ReadLine();
-                        break;
+                Console.WriteLine("\nInforme seu nome completo:");
+                account.name = Console.ReadLine();
+                Console.WriteLine("Informe seu CPF:");
+                account.cpf = Console.ReadLine();
+                break;
 
-                        case 2:
-                        account.Type = Enum.AccountType.PJ;
+                case 2:
+                account.Type = Enum.AccountType.PJ;
 
-                        Console.WriteLine("\nInforme o nome da empresa:");
-                        account.name = Console.ReadLine();
-                        Console.WriteLine("Informe seu CNPJ:");
-                        account.cpf = Console.ReadLine();
-                        break;
-                    }
-                    listAccounts.Add(account);
-                    Console.WriteLine($"\nCliente {account.name} cadastrado com sucesso!\n");
-                }
-            } 
-            catch (System.FormatException)
-            {
-                Console.WriteLine("Informe uma opção valida!\n");
-                return;
+                Console.WriteLine("\nInforme o nome da empresa:");
+                account.name = Console.ReadLine();
+                Console.WriteLine("Informe seu CNPJ:");
+                account.cpf = Console.ReadLine();
+                break;
             }
+            listAccounts.Add(account);
+            Console.WriteLine($"\nCliente {account.name} cadastrado com sucesso!\n");
             
         }
         
@@ -92,37 +68,69 @@ namespace AppBancario.Classes
             Console.WriteLine("X - SAIR");
             Console.WriteLine("Informe o numero da conta:");
             var TypeCount = Console.ReadLine();
-            if (TypeCount.ToUpper() == "R")
+            functions.ReturnOptions(TypeCount);
+            if (functions.ValidateCount(int.Parse(TypeCount)))
             {
-                Console.Clear();
-                return;
-            }
-            else if (!Exit(TypeCount))
-            {
-                Environment.Exit(0);
-            }
-            else 
-            {
-                for (int index = 0; index < listAccounts.Count; index++) 
-                {
-                    if (int.Parse(TypeCount) == index)
-                    {
-                        Console.WriteLine("Informe o valor que deseja depositar:");
-                        listAccounts[index].money += double.Parse(Console.ReadLine());
-                        Console.WriteLine($"\nDeposito feito com sucesso!\n\nCONTA: {index} | TITULAR: {listAccounts[index].name} | SALDO: {listAccounts[index].money.ToString($"C", CultureInfo.CreateSpecificCulture("pt-BR"))}\n");
-                        return;
-                    }
-                    else
-                    {
-                        Console.WriteLine("==================================");
-                        Console.WriteLine("\nNumero de conta inexistente!");
-                        Console.WriteLine("!! OPERAÇÃO CANCELADA !!\n");
-                        Console.WriteLine("==================================");
-                    }
-                }
+                int b = int.Parse(TypeCount);
+                Console.WriteLine("Informe o valor que deseja depositar:");
+                listAccounts[b].money += double.Parse(Console.ReadLine());
+                Console.WriteLine($"\nDeposito feito com sucesso!\n\nCONTA: {b} | TITULAR: {listAccounts[b].name} | SALDO: {listAccounts[b].money.ToString($"C", CultureInfo.CreateSpecificCulture("pt-BR"))}\n");
+            } 
+            else
+            {   
+                functions.OperationDenied();
             }
         }
-        
+
+        private void OperationDenied() 
+        {
+            Console.WriteLine("\n==================================");
+            Console.WriteLine("Numero de conta inexistente!");
+            Console.WriteLine("!! OPERAÇÃO CANCELADA !!");
+            Console.WriteLine("==================================\n");
+        }
+        private void ReturnOptions(string param)
+        {
+            try
+            {
+                if (param == "")
+                {
+                    throw new System.FormatException();
+                }
+
+                else if (param.ToUpper() == "R")
+                {
+                    Console.Clear();
+                    return;
+                }
+                else if (!Exit(param))
+                {
+                    Environment.Exit(0);
+                }
+            }
+            catch (System.FormatException) 
+            {
+                Console.WriteLine("\nInforme uma opção valida!\n");
+                return;
+            }
+        }
+        private bool ValidateCount(int param)
+        {
+            int index = 0;
+            while (index < listAccounts.Count) 
+            {   
+                if (index == param)
+                {
+                    return true;
+                }
+                else 
+                {
+                   index++;
+                }
+                
+            }
+            return false;
+        }     
         public static void GetCash()
         {
             Console.Clear();
@@ -132,47 +140,45 @@ namespace AppBancario.Classes
             Console.WriteLine("X - SAIR");
             Console.WriteLine("Informe o numero da conta:");
             var TypeCount = Console.ReadLine();
-            if (TypeCount.ToUpper() == "R")
+            functions.ReturnOptions(TypeCount);
+            if (functions.ValidateCount(int.Parse(TypeCount))) 
             {
-                Console.Clear();
-                return;
-            }
-            else if (!Exit(TypeCount))
-            {
-                Environment.Exit(0);
-            }
-            else 
-            {
-                for (int index = 0; index < listAccounts.Count; index++) 
+                int b = int.Parse(TypeCount);
+                Console.WriteLine("Informe o valor que deseja sacar:");
+                double cash = double.Parse(Console.ReadLine());
+                if (listAccounts[b].money >= cash)
                 {
-                    if (int.Parse(TypeCount) == index)
-                    {
-                        Console.WriteLine("Informe o valor que deseja sacar:");
-                        double cash = double.Parse(Console.ReadLine());
-                        if (listAccounts[index].money >= cash)
-                        {
-                            listAccounts[index].money -= cash;
+                    listAccounts[b].money -= cash;
 
-                            Console.WriteLine($"Saque realizado com sucesso!\n\nCONTA: {index} | TITULAR: {listAccounts[index].name} | SAQUE: {cash.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"))} | NOVO SALDO: {listAccounts[index].money.ToString($"C", CultureInfo.CreateSpecificCulture("pt-BR"))}\n");
-                        }
-                        else 
-                        {
-                            Console.WriteLine("\nSaldo Insuficiente!");
-                            Console.WriteLine("!! OPERAÇÃO CANCELADA !!\n");
-                            return;
-                        }                        
-                    }
-                    else
-                    {
-                        Console.WriteLine("==================================");
-                        Console.WriteLine("\nNumero de conta inexistente!");
-                        Console.WriteLine("!! OPERAÇÃO CANCELADA !!\n");
-                        Console.WriteLine("==================================");
-                    }
+                    Console.WriteLine($"\nSaque realizado com sucesso!\n\nCONTA: {b} | TITULAR: {listAccounts[b].name} | SAQUE: {cash.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"))} | NOVO SALDO: {listAccounts[b].money.ToString($"C", CultureInfo.CreateSpecificCulture("pt-BR"))}\n");
+                    return;
                 }
+                else 
+                {
+                    Console.WriteLine("\nSaldo Insuficiente!");
+                    Console.WriteLine("!! OPERAÇÃO CANCELADA !!\n");
+                }      
             }
+            else
+            {
+                functions.OperationDenied();
+            }
+        }  
+        public static void TransferCash()
+        {
+            Console.Clear();
+            Console.WriteLine("============== Transferência ==============");
+            Console.WriteLine();
+            Console.WriteLine("R - Voltar ao Menu anterior");
+            Console.WriteLine("X - SAIR");
+            Console.WriteLine("Informe o numero da sua conta:");
+            var TypeCount = Console.ReadLine();
+            functions.ReturnOptions(TypeCount);
+            Console.WriteLine("Valor a ser transferido:");
+            double transferCash = double.Parse(Console.ReadLine());
+
+
         }
-        
         public static bool Exit(string param)
         {
             if (param.ToUpper() == "X")

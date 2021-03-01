@@ -7,6 +7,7 @@ namespace AppBancario.Classes
     public class Functions
     {
         private static Functions functions = new Functions();
+        
         private static List<Account> listAccounts = new List<Account>();
 
         public static void CreateCount()
@@ -54,7 +55,7 @@ namespace AppBancario.Classes
             int count = 0;
             foreach (var i in listAccounts)
             {
-                Console.WriteLine($"CONTA: {count} | NOME DO TITULAR: {i.name} | TIPO DA CONTA: {Convert.ToString(i.Type)} \n");
+                Console.WriteLine($"CONTA: {count} | NOME DO TITULAR: {i.name} | TIPO DA CONTA: {Convert.ToString(i.Type)} | CPF: {i.cpf} \n");
                 count++;
             }
         }
@@ -89,6 +90,7 @@ namespace AppBancario.Classes
             Console.WriteLine("!! OPERAÇÃO CANCELADA !!");
             Console.WriteLine("==================================\n");
         }
+        
         private void ReturnOptions(string param)
         {
             try
@@ -114,6 +116,7 @@ namespace AppBancario.Classes
                 return;
             }
         }
+        
         private bool ValidateCount(int param)
         {
             int index = 0;
@@ -131,6 +134,7 @@ namespace AppBancario.Classes
             }
             return false;
         }     
+        
         public static void GetCash()
         {
             Console.Clear();
@@ -164,6 +168,7 @@ namespace AppBancario.Classes
                 functions.OperationDenied();
             }
         }  
+        
         public static void TransferCash()
         {
             Console.Clear();
@@ -174,11 +179,67 @@ namespace AppBancario.Classes
             Console.WriteLine("Informe o numero da sua conta:");
             var TypeCount = Console.ReadLine();
             functions.ReturnOptions(TypeCount);
-            Console.WriteLine("Valor a ser transferido:");
-            double transferCash = double.Parse(Console.ReadLine());
+            if (functions.ValidateCount(int.Parse(TypeCount)))
+            {
+                int source = int.Parse(TypeCount);
+                Console.WriteLine("\nValor a ser transferido:");
+                double transferCash = double.Parse(Console.ReadLine());
+                
+                if (listAccounts[source].money >= transferCash)
+                {
+                    Console.WriteLine("\nInforme a conta de destino:");
+                    var DestinyCount = Console.ReadLine();
+                    if (functions.ValidateCount(int.Parse(DestinyCount)))
+                    {
+                        int destiny = int.Parse(DestinyCount);
+                        Console.WriteLine($"\nCONTA DE ORIGEM: {source} | TITULAR: {listAccounts[source].name} | CPF: {listAccounts[source].cpf}");
+                        Console.WriteLine($"CONTA DE DESTINO: {destiny} | TITULAR: {listAccounts[destiny].name} | CPF: {listAccounts[destiny].cpf}");
+                        Console.WriteLine($"Valor a ser tranferido: {transferCash.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"))}");
+                        Console.WriteLine("\n1 - CONFIRMA");
+                        Console.WriteLine("X - ANULA");
+                        var opt = Console.ReadLine();
+                        try {
+                            if (opt == "1")
+                            {
+                                listAccounts[source].money -= transferCash;
+                                listAccounts[destiny].money += transferCash;
+                                Console.WriteLine("\nTransferência realizada com sucesso!\n");
+                            }
+                            else if (opt.ToUpper() == "X")
+                            {
+                                Console.WriteLine("Transação cancelada!!");
+                                return;
+                            }
+                            else 
+                            {
+                                throw new System.FormatException();
+                            }
+                        }
+                        catch (System.FormatException)
+                        {
+                            Console.WriteLine("\nInforme uma opção valida!\n");
+                            return;
+                        }
 
-
+                    }
+                    else
+                    {
+                        functions.OperationDenied();
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("\nSaldo Insuficiente!");
+                    Console.WriteLine("!! OPERAÇÃO CANCELADA !!\n");
+                }
+            }
+            else
+            {
+                functions.OperationDenied();
+            }
+            
         }
+        
         public static bool Exit(string param)
         {
             if (param.ToUpper() == "X")
